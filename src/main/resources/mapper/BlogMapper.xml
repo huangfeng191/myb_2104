@@ -6,4 +6,5 @@
     <select id="selectBlog" resultType="org.fengfeng.entry.Blog">
     select * from Blog where id = #{id}
   </select>
+    <cache/>
 </mapper>
