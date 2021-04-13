@@ -6,5 +6,5 @@
     <select id="selectBlog" resultType="org.fengfeng.entry.Blog">
     select * from Blog where id = #{id}
   </select>
-    <cache/>
+    <cache type="org.mybatis.caches.redis.RedisCache"/>
 </mapper>
