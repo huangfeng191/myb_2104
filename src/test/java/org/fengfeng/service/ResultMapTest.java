@@ -4,7 +4,6 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.fengfeng.entry.Author;
 import org.fengfeng.entry.BlogAndAuthor;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,6 +77,14 @@ public class ResultMapTest {
         }
     }
 
+    @Test
+    public void selectBlogAndAuthor_co_nest() throws IOException {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            List<BlogAndAuthor> objects = session.selectList("org.fengfeng.mapper.BlogAndAuthorMapper.selectBlogByNestCo");
+            System.out.println("---------------------------------");
+            System.out.println(objects);
 
+        }
+    }
 
 }

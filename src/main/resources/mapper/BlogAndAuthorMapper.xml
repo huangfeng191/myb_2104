@@ -59,4 +59,34 @@
             <result property="email" column="author_email"></result>
         </association>
     </resultMap>
+
+<!--    下面是 使用prefix 的时候 -->
+
+    <select id="selectBlogByNestCo" resultMap="blogResultNestCo" >
+         select b.id blog_id,
+           b.name blog_name,
+           b.rating blog_rating,
+           b.author_id  blog_author_id,
+					 a.id author_id,
+					 a.username author_username,
+					 a.password author_password,
+					 a.email author_email,
+					 c.id co_author_id,
+					 c.username co_author_username,
+					 c.password co_author_password,
+					 c.email co_author_email
+        from blog b
+				LEFT JOIN  author a on b.author_id =a.id
+				LEFT JOIN author c on b.co_author_id=c.id
+     </select>
+
+    <resultMap id="blogResultNestCo" type="blogAndAuthor">
+        <id property="id" column="blog_id" />
+        <result property="name" column="blog_name"></result>
+        <result property="rating" column="blog_rating"></result>
+        <association property="author" column="blog_author_id"  resultMap="authorNest"></association>
+        <association property="co_author" column="blog_co_author_id" columnPrefix="co_"   resultMap="authorNest"></association>
+    </resultMap>
+
+
 </mapper>

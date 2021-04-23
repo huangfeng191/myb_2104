@@ -10,4 +10,5 @@ public class BlogAndAuthor {
     private String name;
     private String rating;
     private Author author;
+    private Author co_author;
 }
