@@ -1,7 +1,10 @@
 package org.fengfeng.entry;
 
+import org.apache.ibatis.type.Alias;
+
 import java.io.Serializable;
 
+@Alias("Blog")
 public class Blog implements Serializable {
     private String id ;
     private String name;

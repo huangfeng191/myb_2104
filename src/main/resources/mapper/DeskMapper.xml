@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fengfeng.mapper.DeskMapper">
+<!-- 指定的时 resultType -->
+    <select id="selectDesk1" resultType="map">
+        select id,name from desk where id=#{id}
+    </select>
+
+    <resultMap id="simpleDesk" type="map">
+<!--        默认是所有都映射的-->
+<!--        <id property="id" column="id"></id>-->
+        <result property="name" column="second_name"></result>
+<!--        <result property="tp" column="tp"></result>-->
+<!--        <result property="feet" column="feet" ></result>-->
+    </resultMap>
+
+
+    <select id="selectDeskByResultMap" resultMap="simpleDesk">
+        select * from desk where id=#{id}
+    </select>
+
+
+</mapper>

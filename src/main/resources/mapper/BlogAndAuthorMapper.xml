@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.fengfeng.mapper.BlogAndAuthorMapper">
+    <resultMap id="blogResult" type="blogAndAuthor">
+<!--        <association property="author" column="author_id" select="selectAuthor" fetchType="lazy"></association>-->
+        <association property="author" column="author_id" select="selectAuthor" fetchType="lazy"></association>
+    </resultMap>
+    
+    <select id="selectBlog" resultMap="blogResult">
+        select * from blog where id =#{id};
+    </select>
+
+    <select id="selectBlogs" resultMap="blogResult">
+        select * from blog ;
+    </select>
+
+    <select id="selectAuthor" resultType="author">
+        select * from author where id= #{id}
+    </select>
+
+
+<!--    <select id="selectBlogByNest" resultMap="blogResultNest" >-->
+    <select id="selectBlogByNest" resultMap="blogResultNest1" >
+        select b.id blog_id,
+           b.name blog_name,
+           b.rating blog_rating,
+           b.author_id  blog_author_id,
+                 a.id author_id,
+                 a.username author_username,
+                 a.password author_password,
+                 a.email author_email
+        from blog b LEFT JOIN  author a on b.author_id =a.id ;
+     </select>
+    <resultMap id="blogResultNest" type="blogAndAuthor">
+        <id property="id" column="blog_id" />
+        <result property="name" column="blog_name"></result>
+        <result property="rating" column="blog_rating"></result>
+        <association property="author" column="blog_author_id"  resultMap="authorNest"></association>
+    </resultMap>
+
+    <resultMap id="authorNest" type="author">
+        <id property="id" column="author_id"></id>
+        <result property="username" column="author_username"></result>
+        <result property="password" column="author_password"></result>
+        <result property="email" column="author_email"></result>
+    </resultMap>
+
+<!--不重用的方式-->
+    <resultMap id="blogResultNest1" type="blogAndAuthor">
+        <id property="id" column="blog_id" />
+        <result property="name" column="blog_name"></result>
+        <result property="rating" column="blog_rating"></result>
+        <association property="author" column="blog_author_id"  javaType="author">
+            <id property="id" column="author_id"></id>
+            <result property="username" column="author_username"></result>
+            <result property="password" column="author_password"></result>
+            <result property="email" column="author_email"></result>
+        </association>
+    </resultMap>
+</mapper>
